@@ -412,14 +412,8 @@
                             </svg>
 
                             <!-- User uploaded photo display element -->
-                            <img id="userPhoto" src="couple.jpg" class="w-full h-full object-cover" alt="Abdelazem & Shrouk" />
+                            <img id="userPhoto" src="couple.jpg" class="w-full h-full object-cover object-left" alt="Abdelazem & Shrouk" />
 
-                            <!-- Overlay Button to Upload Custom Image -->
-                            <label for="photoUpload" class="absolute bottom-2 right-2 bg-burgundy/90 hover:bg-burgundy text-goldLight text-xs px-3 py-1.5 rounded-full shadow-lg border border-gold cursor-pointer flex items-center gap-1.5 transition-all opacity-80 hover:opacity-100 z-10">
-                                <i class="fa-solid fa-camera"></i>
-                                <span>Change Photo</span>
-                            </label>
-                            <input type="file" id="photoUpload" accept="image/*" class="hidden" onchange="uploadCustomPhoto(event)">
                         </div>
                         <div class="absolute inset-0 border-[6px] border-white/40 pointer-events-none"></div>
                     </div>
