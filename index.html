@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Abdelazem & Shrouk Wedding Invitation</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF4EB',
+                        creamDark: '#F3E9DC',
+                        burgundy: '#700018',
+                        burgundyDark: '#4A000F',
+                        gold: '#C48D0E',
+                        goldLight: '#E5B95C',
+                        charcoal: '#2B2B2B',
+                        palette: {
+                            1: '#700018', // Deep Burgundy
+                            2: '#9E1B42', // Berry Red
+                            3: '#C48D0E', // Ochre Gold
+                            4: '#0F2942', // Deep Navy
+                            5: '#2E472B', // Dark Olive
+                            6: '#A05063'  // Mauve
+                        }
+                    },
+                    fontFamily: {
+                        script: ['"Alex Brush"', 'cursive'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        title: ['"Playfair Display"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF4EB;
+            color: #2B2B2B;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF4EB;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C48D0E;
+            border-radius: 3px;
+        }
+
+        /* 3D Envelope Styles */
+        .perspective-1000 {
+            perspective: 1200px;
+        }
+        
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 230px;
+            background-color: #f0e6d8;
+            border-radius: 8px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.18), 0 5px 15px rgba(112, 0, 24, 0.08);
+            transition: all 0.6s ease-in-out;
+            cursor: pointer;
+        }
+
+        @media (min-width: 640px) {
+            .envelope-wrapper {
+                width: 400px;
+                height: 280px;
+            }
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: #e5d8c5;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, z-index 0.2s 0.4s;
+            z-index: 4;
+            border-top: 1px solid #d4c3ab;
+        }
+
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5ece0;
+            clip-path: polygon(0 0, 0% 100%, 100% 100%, 100% 0, 50% 55%);
+            z-index: 3;
+            border-radius: 0 0 8px 8px;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.03);
+        }
+
+        .envelope-card-preview {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 85%;
+            background: #ffffff;
+            border-radius: 6px;
+            z-index: 2;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #FAF4EB;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+        }
+
+        /* Opened State for Envelope */
+        .envelope-wrapper.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.open .envelope-card-preview {
+            transform: translateX(-50%) translateY(-110px) scale(1.03);
+        }
+
+        @media (min-width: 640px) {
+            .envelope-wrapper.open .envelope-card-preview {
+                transform: translateX(-50%) translateY(-140px) scale(1.05);
+            }
+        }
+
+        /* Wax Seal Button */
+        .wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 58px;
+            height: 58px;
+            background: radial-gradient(circle, #8a0621 0%, #700018 70%, #4a000f 100%);
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.3);
+            transition: transform 0.3s ease, opacity 0.4s ease;
+            border: 2px solid #5a0013;
+        }
+
+        .wax-seal::after {
+            content: '';
+            position: absolute;
+            width: 46px;
+            height: 46px;
+            border: 1px dashed rgba(229, 185, 92, 0.6);
+            border-radius: 50%;
+        }
+
+        .envelope-wrapper.open .wax-seal {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        /* Floating Petals Animation */
+        .petal {
+            position: fixed;
+            background-color: #700018;
+            opacity: 0.3;
+            border-radius: 150% 0 150% 0;
+            pointer-events: none;
+            z-index: 0;
+            animation: animatePetal 10s linear infinite;
+        }
+
+        @keyframes animatePetal {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(0.6);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Custom Frame Accent */
+        .classic-frame {
+            position: relative;
+            padding: 10px;
+            border: 2px solid #700018;
+            outline: 1px solid #C48D0E;
+            outline-offset: 4px;
+            background: #fff;
+        }
+
+        /* Smooth reveal class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 3D Button Effect */
+        .btn-3d {
+            transition: all 0.15s ease;
+            box-shadow: 0 6px 0 #4A000F, 0 10px 15px rgba(0,0,0,0.15);
+        }
+        .btn-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #4A000F, 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-charcoal selection:bg-burgundy selection:text-white">
+
+    <!-- Background Petals Container -->
+    <div id="petals-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+    <!-- Music Control Float -->
+    <button id="musicToggle" aria-label="Toggle Romantic Music" class="fixed bottom-5 right-5 z-50 w-12 h-12 rounded-full bg-burgundy text-goldLight shadow-xl flex items-center justify-center border-2 border-gold transition-transform hover:scale-110 active:scale-95 focus:outline-none">
+        <i id="musicIcon" class="fa-solid fa-music text-lg"></i>
+    </button>
+
+    <!-- INTRO/ENVELOPE SCREEN (HERO OVERLAY) -->
+    <div id="envelope-screen" class="fixed inset-0 z-40 bg-cream flex flex-col items-center justify-center p-4 transition-opacity duration-700">
+        
+        <div class="text-center mb-8 animate-fade-in">
+            <p class="font-serif italic text-burgundy text-lg sm:text-xl tracking-widest uppercase">You are cordially invited</p>
+            <h1 class="font-script text-4xl sm:text-6xl text-burgundy mt-1">Abdelazem & Shrouk</h1>
+            <p class="text-xs sm:text-sm text-gray-500 font-sans tracking-widest mt-2 uppercase">Tap the wax seal to open</p>
+        </div>
+
+        <!-- Interactive Envelope -->
+        <div class="perspective-1000 my-4">
+            <div id="envelope" class="envelope-wrapper" onclick="openInvitation()">
+                <div class="envelope-flap"></div>
+                <div class="wax-seal">
+                    <span class="font-script text-goldLight text-xl font-bold">A&S</span>
+                </div>
+                <div class="envelope-card-preview">
+                    <!-- Ribbon Bow SVG -->
+                    <svg class="w-16 h-8 text-burgundy mb-1" viewBox="0 0 120 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Elegant burgundy bow tie" role="img">
+                        <path d="M53 25C43 17 27 10 14 13C7 15 5 21 8 29L14 44C17 51 23 52 30 48C40 43 48 37 53 33V25Z" fill="#700018" stroke="#4A000F" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M67 25C77 17 93 10 106 13C113 15 115 21 112 29L106 44C103 51 97 52 90 48C80 43 72 37 67 33V25Z" fill="#700018" stroke="#4A000F" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M53 24C57 21 63 21 67 24V40C63 43 57 43 53 40V24Z" fill="#8D1730" stroke="#C48D0E" stroke-width="1.7"/>
+                        <path d="M15 20C27 19 39 25 47 30M105 20C93 19 81 25 73 30" stroke="#B64A61" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+                        <path d="M20 44C30 41 39 35 46 30M100 44C90 41 81 35 74 30" stroke="#4A000F" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+                    </svg>
+                    <h2 class="font-script text-2xl text-burgundy leading-tight">Abdelazem & Shrouk</h2>
+                    <div class="w-12 h-0.5 bg-gold my-1"></div>
+                    <p class="font-serif text-xs text-gray-700 tracking-wider">NOVEMBER 19, 2026</p>
+                    <span class="text-[10px] text-gold uppercase tracking-widest mt-2 font-semibold">Save The Date</span>
+                </div>
+                <div class="envelope-pocket"></div>
+            </div>
+        </div>
+
+        <div id="tapHint" class="mt-12 text-center opacity-80 animate-bounce">
+            <p class="text-xs font-sans tracking-widest text-burgundy uppercase font-semibold">
+                <i class="fa-solid fa-hand-pointer mr-1"></i> Tap Envelope
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN INVITATION CONTENT (Scrollable) -->
+    <main id="main-content" class="relative z-10 max-w-xl mx-auto px-4 py-8 sm:py-12 min-h-screen opacity-0 transition-opacity duration-1000">
+
+        <!-- Header Ribbon Art -->
+        <div class="text-center mb-6 reveal active">
+            <svg class="w-24 h-12 mx-auto text-burgundy" viewBox="0 0 120 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Elegant burgundy bow tie" role="img">
+                <path d="M53 25C43 17 27 10 14 13C7 15 5 21 8 29L14 44C17 51 23 52 30 48C40 43 48 37 53 33V25Z" fill="#700018" stroke="#4A000F" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M67 25C77 17 93 10 106 13C113 15 115 21 112 29L106 44C103 51 97 52 90 48C80 43 72 37 67 33V25Z" fill="#700018" stroke="#4A000F" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M53 24C57 21 63 21 67 24V40C63 43 57 43 53 40V24Z" fill="#8D1730" stroke="#C48D0E" stroke-width="1.7"/>
+                <path d="M15 20C27 19 39 25 47 30M105 20C93 19 81 25 73 30" stroke="#B64A61" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+                <path d="M20 44C30 41 39 35 46 30M100 44C90 41 81 35 74 30" stroke="#4A000F" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+            </svg>
+        </div>
+
+        <!-- SECTION 1: HERO & NAMES -->
+        <section class="text-center mb-16 reveal">
+            <h1 class="font-script text-5xl sm:text-7xl text-burgundy mb-2 leading-tight">
+                Abdelazem <span class="font-serif text-3xl sm:text-4xl text-gold">&</span> Shrouk
+            </h1>
+            
+            <p class="font-serif italic text-lg sm:text-xl text-gray-700 tracking-wide mt-3 mb-6">
+                ARE GETTING MARRIED ON
+            </p>
+
+            <div class="inline-block border-y-2 border-gold py-2 px-6 my-2">
+                <h2 class="font-title text-2xl sm:text-3xl font-bold tracking-widest text-burgundy">
+                    NOVEMBER 19, 2026
+                </h2>
+                <p class="font-serif text-lg tracking-wider text-charcoal font-semibold mt-1">
+                    At 5 PM
+                </p>
+            </div>
+
+            <!-- Main Couple Photo Frame -->
+            <div class="mt-8 mb-8 max-w-xs sm:max-w-sm mx-auto">
+                <div class="classic-frame shadow-2xl rounded-sm overflow-hidden bg-white p-2 border-2 border-burgundy outline outline-1 outline-gold outline-offset-4">
+                    <div class="relative overflow-hidden group rounded">
+                        <!-- Custom Wedding Image Container with Image & Interactive Upload Support -->
+                        <div class="w-full aspect-[3/4] relative bg-creamDark flex items-center justify-center overflow-hidden" id="photoContainer">
+                            <!-- Custom Vector Artwork representing Abdelazem & Shrouk in frame -->
+                            <svg id="coupleVector" class="w-full h-full object-cover" viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#FAF0E6"/>
+                                        <stop offset="100%" stop-color="#E6D3C1"/>
+                                    </linearGradient>
+                                    <linearGradient id="chandelierGrad" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#FFD700"/>
+                                        <stop offset="100%" stop-color="#C48D0E"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Wall & Arch Background -->
+                                <rect width="600" height="800" fill="url(#bgGrad)"/>
+                                <path d="M 0 160 Q 300 -40 600 160 L 600 0 L 0 0 Z" fill="#5c0612" opacity="0.85"/>
+                                <path d="M 0 160 Q 300 -40 600 160" fill="none" stroke="#C48D0E" stroke-width="8"/>
+                                
+                                <!-- Chandelier -->
+                                <line x1="300" y1="0" x2="300" y2="100" stroke="#C48D0E" stroke-width="4"/>
+                                <path d="M 240 100 Q 300 140 360 100 M 260 100 Q 300 120 340 100" fill="none" stroke="url(#chandelierGrad)" stroke-width="3"/>
+                                <circle cx="240" cy="90" r="6" fill="#FFF8DC"/>
+                                <circle cx="300" cy="80" r="7" fill="#FFF8DC"/>
+                                <circle cx="360" cy="90" r="6" fill="#FFF8DC"/>
+                                <circle cx="240" cy="90" r="12" fill="#FFE4B5" opacity="0.5"/>
+                                <circle cx="300" cy="80" r="14" fill="#FFE4B5" opacity="0.5"/>
+                                <circle cx="360" cy="90" r="12" fill="#FFE4B5" opacity="0.5"/>
+
+                                <!-- Background Classic Painting Frame -->
+                                <rect x="180" y="240" width="240" height="180" fill="#2b1a0e" stroke="#C48D0E" stroke-width="6"/>
+                                <rect x="195" y="255" width="210" height="150" fill="#607d8b"/>
+                                <path d="M 195 380 Q 280 300 405 380 Z" fill="#4caf50" opacity="0.7"/>
+
+                                <!-- Groom (Abdelazem - Right side in dark suit, folded arms) -->
+                                <g transform="translate(320, 290)">
+                                    <!-- Head & Hair -->
+                                    <ellipse cx="65" cy="50" rx="20" ry="24" fill="#d09a74"/>
+                                    <path d="M 45 42 Q 65 20 85 40 Q 75 25 50 30 Z" fill="#2b1a0e"/>
+                                    <path d="M 47 52 Q 45 70 58 72 Q 70 72 75 55" fill="none" stroke="#2b1a0e" stroke-width="4"/> <!-- Beard -->
+                                    <!-- Suit Body -->
+                                    <path d="M 30 85 L 100 85 L 115 280 L 15 280 Z" fill="#1a1a1a"/> <!-- Dark Suit -->
+                                    <path d="M 50 85 L 65 130 L 80 85 Z" fill="#ffffff"/> <!-- White Shirt -->
+                                    <path d="M 62 85 L 68 140" stroke="#700018" stroke-width="5"/> <!-- Maroon Tie -->
+                                    <!-- Arms Folded -->
+                                    <path d="M 25 105 Q 65 140 100 110" fill="none" stroke="#1a1a1a" stroke-width="22" stroke-linecap="round"/>
+                                    <ellipse cx="65" cy="135" rx="12" ry="8" fill="#d09a74"/>
+                                </g>
+
+                                <!-- Bride (Shrouk - Left side in white sparkling gown & hijab) -->
+                                <g transform="translate(180, 290)">
+                                    <!-- White Hijab -->
+                                    <path d="M 40 45 Q 65 15 90 45 Q 95 85 65 90 Q 35 85 40 45 Z" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+                                    <!-- Face -->
+                                    <ellipse cx="65" cy="55" rx="16" ry="19" fill="#f3c2a2"/>
+                                    <path d="M 55 52 Q 60 50 63 52" stroke="#4a2c11" stroke-width="2" fill="none"/> <!-- Eye -->
+                                    <path d="M 67 52 Q 70 50 75 52" stroke="#4a2c11" stroke-width="2" fill="none"/> <!-- Eye -->
+                                    <path d="M 58 65 Q 65 72 72 65" stroke="#b71c1c" stroke-width="2" fill="none"/> <!-- Smile -->
+                                    <!-- Elegant White Dress -->
+                                    <path d="M 35 90 Q 65 85 95 90 L 125 350 Q 65 370 5 350 Z" fill="#fafafa" stroke="#f0f0f0"/>
+                                    <!-- Dress Pattern Sparkles -->
+                                    <path d="M 40 110 Q 65 150 90 110 M 35 150 Q 65 200 95 150 M 25 220 Q 65 270 105 220 M 15 290 Q 65 330 115 290" fill="none" stroke="#e0e0e0" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                </g>
+
+                                <!-- Gold Side Tables & Lamps -->
+                                <rect x="30" y="440" width="80" height="200" fill="none" stroke="#C48D0E" stroke-width="4"/>
+                                <path d="M 10 440 L 130 440 L 110 360 L 30 360 Z" fill="#8d6e63"/>
+                                <rect x="490" y="440" width="80" height="200" fill="none" stroke="#C48D0E" stroke-width="4"/>
+                                <path d="M 470 440 L 590 440 L 570 360 L 490 360 Z" fill="#8d6e63"/>
+
+                                <!-- Text Banner at bottom of photo -->
+                                <rect x="0" y="730" width="600" height="70" fill="rgba(112,0,24,0.85)"/>
+                                <text x="300" y="770" font-family="'Alex Brush', cursive" font-size="38" fill="#FFF" text-anchor="middle">Abdelazem &amp; Shrouk</text>
+                            </svg>
+
+                            <!-- User uploaded photo display element -->
+                            <img id="userPhoto" src="couple.jpg" class="w-full h-full object-cover" alt="Abdelazem & Shrouk" />
+
+                            <!-- Overlay Button to Upload Custom Image -->
+                            <label for="photoUpload" class="absolute bottom-2 right-2 bg-burgundy/90 hover:bg-burgundy text-goldLight text-xs px-3 py-1.5 rounded-full shadow-lg border border-gold cursor-pointer flex items-center gap-1.5 transition-all opacity-80 hover:opacity-100 z-10">
+                                <i class="fa-solid fa-camera"></i>
+                                <span>Change Photo</span>
+                            </label>
+                            <input type="file" id="photoUpload" accept="image/*" class="hidden" onchange="uploadCustomPhoto(event)">
+                        </div>
+                        <div class="absolute inset-0 border-[6px] border-white/40 pointer-events-none"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save The Date Action -->
+            <div class="mt-6">
+                <button onclick="downloadCalendarEvent()" class="btn-3d inline-flex items-center gap-2 bg-burgundy hover:bg-burgundyDark text-cream font-sans text-xs tracking-widest uppercase font-bold py-3 px-8 rounded-md border border-gold/40">
+                    <i class="fa-regular fa-calendar-check text-gold"></i>
+                    <span>Save The Date</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- DIVIDER -->
+        <div class="flex items-center justify-center my-12 text-gold/60">
+            <div class="w-16 h-px bg-gold/40"></div>
+            <i class="fa-solid fa-heart text-xs mx-4 text-burgundy"></i>
+            <div class="w-16 h-px bg-gold/40"></div>
+        </div>
+
+        <!-- SECTION 2: VENUE LOCATION -->
+        <section class="text-center mb-16 bg-creamDark/60 rounded-2xl p-8 border border-gold/20 shadow-sm reveal">
+            <!-- Venue Icon Artwork -->
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-burgundy text-cream flex items-center justify-center border-2 border-gold shadow-md">
+                <i class="fa-solid fa-archway text-2xl text-goldLight"></i>
+            </div>
+
+            <h3 class="font-script text-4xl sm:text-5xl text-burgundy mb-2">
+                Beau jardin east
+            </h3>
+            
+            <p class="font-serif italic text-gray-600 text-base mb-6">
+                We can't wait to celebrate our special day with you!
+            </p>
+
+            <!-- Venue Preview Gallery (Night & Day using venue images) -->
+            <div class="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-6">
+                <!-- Night View Card -->
+                <div class="relative rounded-xl overflow-hidden border-2 border-gold shadow-md group aspect-[3/4] bg-burgundy/10">
+                    <img src="https://placehold.co/400x533/700018/FFFFFF?text=Beau+Jardin+Night" alt="Beau Jardin East Night" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-burgundyDark via-transparent to-transparent opacity-90 flex items-end justify-center p-2">
+                        <span class="text-[11px] font-sans font-semibold text-goldLight tracking-wider uppercase"><i class="fa-solid fa-moon mr-1"></i> Night View</span>
+                    </div>
+                </div>
+
+                <!-- Day Setup Card -->
+                <div class="relative rounded-xl overflow-hidden border-2 border-gold shadow-md group aspect-[3/4] bg-burgundy/10">
+                    <img src="https://placehold.co/400x533/C48D0E/FFFFFF?text=Beau+Jardin+Day" alt="Beau Jardin East Day" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-burgundyDark via-transparent to-transparent opacity-90 flex items-end justify-center p-2">
+                        <span class="text-[11px] font-sans font-semibold text-goldLight tracking-wider uppercase"><i class="fa-solid fa-sun mr-1"></i> Day Setup</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Click Here Button for Location -->
+            <a href="https://maps.app.goo.gl/qnKezhq75LevtmQw8?g_st=ic" target="_blank" rel="noopener noreferrer" class="btn-3d inline-flex items-center justify-center gap-3 bg-burgundy hover:bg-burgundyDark text-white font-title font-bold text-sm tracking-wider uppercase py-3.5 px-8 rounded-full border-2 border-goldLight group">
+                <span>CLICK HERE FOR LOCATION</span>
+                <i class="fa-solid fa-location-dot text-goldLight group-hover:bounce"></i>
+            </a>
+        </section>
+
+        <!-- DIVIDER -->
+        <div class="flex items-center justify-center my-12 text-gold/60">
+            <div class="w-16 h-px bg-gold/40"></div>
+            <i class="fa-solid fa-heart text-xs mx-4 text-burgundy"></i>
+            <div class="w-16 h-px bg-gold/40"></div>
+        </div>
+
+        <!-- SECTION 3: DRESS CODE -->
+        <section class="text-center mb-16 reveal">
+            <!-- Mannequin Icon -->
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-burgundy text-white flex items-center justify-center shadow-md border border-gold">
+                <i class="fa-solid fa-user-tie text-xl text-goldLight"></i>
+            </div>
+
+            <h3 class="font-title text-2xl tracking-widest text-burgundy uppercase font-bold mb-4">
+                Dress Code
+            </h3>
+
+            <!-- Color Palette Swatches -->
+            <div class="bg-creamDark/80 p-6 rounded-2xl border border-gold/30 max-w-sm sm:max-w-md mx-auto my-6 shadow-inner">
+                <p class="font-sans text-xs uppercase tracking-widest text-burgundy font-bold mb-4">Color Palette</p>
+                <div class="flex justify-center items-center gap-3 sm:gap-4 flex-wrap">
+                    <!-- Burgundy -->
+                    <div class="group relative flex flex-col items-center">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#700018] shadow-md border-2 border-white transform transition hover:scale-110 cursor-pointer"></div>
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-sans font-medium text-burgundy mt-1.5 absolute -bottom-5 whitespace-nowrap">Deep Burgundy</span>
+                    </div>
+                    <!-- Berry Red -->
+                    <div class="group relative flex flex-col items-center">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#9E1B42] shadow-md border-2 border-white transform transition hover:scale-110 cursor-pointer"></div>
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-sans font-medium text-burgundy mt-1.5 absolute -bottom-5 whitespace-nowrap">Berry Red</span>
+                    </div>
+                    <!-- Ochre Gold -->
+                    <div class="group relative flex flex-col items-center">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#C48D0E] shadow-md border-2 border-white transform transition hover:scale-110 cursor-pointer"></div>
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-sans font-medium text-burgundy mt-1.5 absolute -bottom-5 whitespace-nowrap">Ochre Gold</span>
+                    </div>
+                    <!-- Deep Navy -->
+                    <div class="group relative flex flex-col items-center">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#0F2942] shadow-md border-2 border-white transform transition hover:scale-110 cursor-pointer"></div>
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-sans font-medium text-burgundy mt-1.5 absolute -bottom-5 whitespace-nowrap">Deep Navy</span>
+                    </div>
+                    <!-- Olive Green -->
+                    <div class="group relative flex flex-col items-center">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2E472B] shadow-md border-2 border-white transform transition hover:scale-110 cursor-pointer"></div>
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-sans font-medium text-burgundy mt-1.5 absolute -bottom-5 whitespace-nowrap">Olive Green</span>
+                    </div>
+                    <!-- Mauve -->
+                    <div class="group relative flex flex-col items-center">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#A05063] shadow-md border-2 border-white transform transition hover:scale-110 cursor-pointer"></div>
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-sans font-medium text-burgundy mt-1.5 absolute -bottom-5 whitespace-nowrap">Mauve</span>
+                    </div>
+                </div>
+
+                <p class="font-script text-2xl sm:text-3xl text-burgundy max-w-xs sm:max-w-md mx-auto leading-relaxed mt-10 font-bold">
+                    "We’d love to see you in these shades, but feel free to wear any color"
+                </p>
+            </div>
+
+            <!-- Dedicated Bow Tie Dress Code Card -->
+            <div class="my-6 p-6 bg-white/90 rounded-2xl border-2 border-burgundy/40 max-w-sm sm:max-w-md mx-auto shadow-md">
+                <!-- Bowtie SVG Icon -->
+                <div class="mb-3">
+                    <svg class="w-16 h-9 mx-auto text-burgundy drop-shadow-sm" viewBox="0 0 120 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Elegant burgundy bow tie" role="img">
+                        <path d="M53 25.5C43 18 28 11 14 13C8 14 5 19 7 26L12 45C14 51 20 53 27 50C38 46 47 39 53 34V25.5Z" fill="#700018" stroke="#4A000F" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M67 25.5C77 18 92 11 106 13C112 14 115 19 113 26L108 45C106 51 100 53 93 50C82 46 73 39 67 34V25.5Z" fill="#700018" stroke="#4A000F" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M53 25.5C57 22 63 22 67 25.5V38.5C63 42 57 42 53 38.5V25.5Z" fill="#8D1730" stroke="#C48D0E" stroke-width="1.8"/>
+                        <path d="M15 20C26 18 39 24 47 29" stroke="#B64A61" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+                        <path d="M105 20C94 18 81 24 73 29" stroke="#B64A61" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+                    </svg>
+                </div>
+
+                <!-- Burgundy Color Circle Swatch -->
+                <div class="w-10 h-10 mx-auto my-3 rounded-full bg-[#700018] shadow-md border-2 border-white outline outline-2 outline-burgundy/30"></div>
+
+                <!-- Clear & Legible Text Request -->
+                <p class="font-sans text-base sm:text-lg text-burgundy font-bold tracking-wide leading-snug mt-2">
+                    Gentlemen are kindly requested to wear a <span class="underline decoration-gold decoration-2">burgundy bow tie</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- DIVIDER -->
+                Counting Down To The Big Day
+            </h3>
+
+            <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-sm mx-auto">
+                <div class="bg-cream p-3 rounded-lg border border-gold/20 shadow-sm">
+                    <span id="days" class="font-title text-2xl sm:text-3xl font-bold text-burgundy block">00</span>
+                    <span class="text-[10px] sm:text-xs font-sans text-gray-500 uppercase tracking-wider">Days</span>
+                </div>
+                <div class="bg-cream p-3 rounded-lg border border-gold/20 shadow-sm">
+                    <span id="hours" class="font-title text-2xl sm:text-3xl font-bold text-burgundy block">00</span>
+                    <span class="text-[10px] sm:text-xs font-sans text-gray-500 uppercase tracking-wider">Hours</span>
+                </div>
+                <div class="bg-cream p-3 rounded-lg border border-gold/20 shadow-sm">
+                    <span id="minutes" class="font-title text-2xl sm:text-3xl font-bold text-burgundy block">00</span>
+                    <span class="text-[10px] sm:text-xs font-sans text-gray-500 uppercase tracking-wider">Mins</span>
+                </div>
+                <div class="bg-cream p-3 rounded-lg border border-gold/20 shadow-sm">
+                    <span id="seconds" class="font-title text-2xl sm:text-3xl font-bold text-burgundy block">00</span>
+                    <span class="text-[10px] sm:text-xs font-sans text-gray-500 uppercase tracking-wider">Secs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: RSVP & WISHES -->
+        <section class="text-center mb-12 bg-creamDark/40 p-6 sm:p-8 rounded-2xl border border-gold/20 reveal">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-burgundy/10 text-burgundy flex items-center justify-center">
+                <i class="fa-regular fa-envelope-open text-xl"></i>
+            </div>
+            
+            <h3 class="font-title text-2xl text-burgundy font-semibold mb-2">RSVP & Congratulations</h3>
+            <p class="font-serif text-sm text-gray-600 mb-6">Please let us know if you'll be celebrating with us!</p>
+
+            <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-4 max-w-md mx-auto text-left">
+                <div>
+                    <label class="block text-xs font-sans font-semibold uppercase tracking-wider text-burgundy mb-1">Your Name</label>
+                    <input type="text" required placeholder="Enter your full name" class="w-full px-4 py-2.5 rounded-lg border border-gold/40 bg-white focus:outline-none focus:ring-2 focus:ring-burgundy/50 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-sans font-semibold uppercase tracking-wider text-burgundy mb-1">Attendance</label>
+                    <select required class="w-full px-4 py-2.5 rounded-lg border border-gold/40 bg-white focus:outline-none focus:ring-2 focus:ring-burgundy/50 text-sm">
+                        <option value="attending">Joyfully Accepts</option>
+                        <option value="declining">Regretfully Declines</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-sans font-semibold uppercase tracking-wider text-burgundy mb-1">Warm Wishes (Optional)</label>
+                    <textarea rows="3" placeholder="Leave a message for Abdelazem & Shrouk..." class="w-full px-4 py-2.5 rounded-lg border border-gold/40 bg-white focus:outline-none focus:ring-2 focus:ring-burgundy/50 text-sm resize-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full btn-3d bg-burgundy hover:bg-burgundyDark text-white font-title text-xs uppercase tracking-widest font-bold py-3 rounded-lg border border-gold/30">
+                    Send RSVP Response
+                </button>
+            </form>
+
+            <div id="rsvpSuccess" class="hidden mt-4 p-4 bg-emerald-50 text-emerald-800 rounded-lg text-sm border border-emerald-200">
+                <i class="fa-solid fa-circle-check text-lg mr-2"></i> Thank you! Your response has been recorded.
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center py-8 text-xs text-gray-500 font-serif italic border-t border-gold/20">
+            <p>With love & excitement,</p>
+            <p class="font-script text-2xl text-burgundy mt-1">Abdelazem & Shrouk</p>
+            <p class="mt-4 text-[10px] font-sans text-gray-400">#AbdelazemAndShrouk2026</p>
+        </footer>
+
+    </main>
+
+    <!-- Audio Element for Romantic Background Music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-marriage-488.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Upload Custom Photo Functionality
+        function uploadCustomPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const userImg = document.getElementById('userPhoto');
+                    const coupleVector = document.getElementById('coupleVector');
+                    userImg.src = e.target.result;
+                    userImg.classList.remove('hidden');
+                    coupleVector.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Interactive Envelope Opener
+        function openInvitation() {
+            const envelope = document.getElementById('envelope');
+            const envelopeScreen = document.getElementById('envelope-screen');
+            const mainContent = document.getElementById('main-content');
+            const music = document.getElementById('bgMusic');
+            const musicIcon = document.getElementById('musicIcon');
+
+            if (!envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+
+                // Try playing audio on first tap
+                music.play().then(() => {
+                    musicIcon.classList.add('fa-spin');
+                }).catch(e => {
+                    console.log('Audio autoplay prevented by browser');
+                });
+
+                // Fade out envelope screen smoothly after animation finishes
+                setTimeout(() => {
+                    envelopeScreen.style.opacity = '0';
+                    mainContent.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        envelopeScreen.style.display = 'none';
+                        document.body.style.overflowY = 'auto';
+                        triggerScrollAnimations();
+                    }, 700);
+                }, 1200);
+            }
+        }
+
+        // Floating Petals Generator
+        function createPetals() {
+            const container = document.getElementById('petals-container');
+            const count = 15;
+            for (let i = 0; i < count; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                const size = Math.random() * 12 + 8;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size * 1.3}px`;
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.animationDelay = `${Math.random() * 8}s`;
+                petal.style.animationDuration = `${Math.random() * 6 + 8}s`;
+                container.appendChild(petal);
+            }
+        }
+
+        // Live Countdown Timer logic
+        const weddingDate = new Date('November 19, 2026 17:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = weddingDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            } else {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+            }
+        }
+
+        // Save To Calendar Generator (.ics file)
+        function downloadCalendarEvent() {
+            const icsData = 
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Abdelazem & Shrouk Wedding//EN
+BEGIN:VEVENT
+SUMMARY:Abdelazem & Shrouk's Wedding
+DESCRIPTION:Join us to celebrate the wedding of Abdelazem & Shrouk at Beau Jardin East!
+LOCATION:Beau Jardin East
+DTSTART:20261119T150000Z
+DTEND:20261119T210000Z
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', 'Abdelazem_and_Shrouk_Wedding.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Music Toggle Controller
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+
+        musicBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                musicIcon.className = 'fa-solid fa-music text-lg fa-spin';
+            } else {
+                music.pause();
+                musicIcon.className = 'fa-solid fa-volume-xmark text-lg';
+            }
+        });
+
+        // Scroll Animations (IntersectionObserver)
+        function triggerScrollAnimations() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            reveals.forEach(reveal => observer.observe(reveal));
+        }
+
+        // RSVP Form Handler
+        function handleRSVP(event) {
+            event.preventDefault();
+            document.getElementById('rsvpForm').reset();
+            document.getElementById('rsvpSuccess').classList.remove('hidden');
+        }
+
+        // Init on Window Load
+        window.onload = function() {
+            createPetals();
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+            triggerScrollAnimations();
+        };
+    </script>
+</body>
+</html>
